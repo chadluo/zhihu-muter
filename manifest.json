@@ -1,0 +1,17 @@
+{
+  "manifest_version": 2,
+
+  "name": "Zhihu muter",
+  "description": "Clean up your timeline and answer page.",
+  "version": "0.31",
+  "homepage_url": "https://twitter.com/ahxxm",
+  
+  "icons": {
+    "128": "xml.png"
+  },
+  
+  "content_scripts": [{
+    "matches": ["http://*.zhihu.com/*"],
+    "js": ["mute.js"]
+  }]
+ }
