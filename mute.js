@@ -2,10 +2,11 @@
 // @name          Zhihu muter
 // @description   Clean up timeline and question page.
 // @include       http://*.zhihu.com/*
-// @version 	  0.5
+// @version 	  0.6
 
 // Changelog
 /*
+0.6: 2015-04-29, new lovely icon from @hiths 
 0.5: 2015-04-26, new timeline format.
 0.4.1: mute comments and answers with mouse scroll, added tests and (console.log)s. On/off for relevent question suggestions.
 0.4: add more keywords and ids, efficiency improvements(WAT?), TODOs.
