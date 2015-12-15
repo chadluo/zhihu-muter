@@ -4,16 +4,6 @@
 // @include       http://*.zhihu.com/*
 // @version 	  0.6
 
-// Changelog
-/*
-0.6: 2015-04-29, new lovely icon from @hiths 
-0.5: 2015-04-26, new timeline format.
-0.4.1: mute comments and answers with mouse scroll, added tests and (console.log)s. On/off for relevent question suggestions.
-0.4: add more keywords and ids, efficiency improvements(WAT?), TODOs.
-< 0.4: never mind.
-*/
-
-// TODO
 /*
 * "Settings" function: 
 Easily edit mute_id_list and mute_keywords_list, 
@@ -29,10 +19,8 @@ On/Off button: enable/disable "zh-trendings" in homepage, and "zh-question-relat
 */
 
 // id and keyword list
-var mutelist = ["eric-ann", "yolfilm", "cogito", "gracelu", "lawrencelry", "nixy", "zi-mo-qi", "Fenng", "Hi-iD",
-    "peng-yu-75-12", "Ratoo", "yang-guo-er-95", "xu-hui-lin", "mu-peng-37", "e6kq"];
-var keywords = ["看待", "解读", "评价", "优雅", "中国人为什么", "如何正确", "如何成为", "评判", "却不", "体验", "少见但"
-    , "如何理解", "冷门但", "什么心理", "什么感觉", "零基础", "如何反驳", "鲜为人知"];
+var mutelist = ["eric-ann", "yolfilm", "cogito", "gracelu", "lawrencelry", "nixy", "zi-mo-qi", "Fenng", "Hi-iD", "peng-yu-75-12", "Ratoo", "yang-guo-er-95", "xu-hui-lin", "mu-peng-37", "e6kq"];
+var keywords = ["看待", "解读", "评价", "优雅", "中国人为什么", "如何正确", "如何成为", "评判", "却不", "体验", "少见但", "如何理解", "冷门但", "什么心理", "什么感觉", "零基础", "如何反驳", "鲜为人知", "特别急"];
 
 var top_column_info_hidden = 1;
 var you_may_not_want_to_know = 1;
@@ -133,16 +121,13 @@ function question_mute(className, tomute) {
         var feed_item = elements[i];
         try {
             var result = mute_current_question(feed_item, tomute);
-            console.log(result);
+            // console.log(result);
         }
         catch (err){
             //console.log('Not valid feed item.');
         }
     }
 }
-
-/* test
- */
 
 // Main function
 
@@ -196,7 +181,8 @@ if (hrefValue.search('question') > -1) {
 if (hrefValue.search('question') == -1) {
     if (document.addEventListener) {
         document.addEventListener('scroll', function (event) {
-            question_mute('feed-item folding', keywords);
+            question_mute('feed-item folding feed-item-hook feed-item-a', keywords);
+            question_mute('feed-item folding feed-item-hook feed-item-q', keywords);
         }, false);
     }
 }
