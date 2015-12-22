@@ -20,7 +20,7 @@ On/Off button: enable/disable "zh-trendings" in homepage, and "zh-question-relat
 
 // id and keyword list
 var mutelist = ["eric-ann", "yolfilm", "cogito", "gracelu", "lawrencelry", "nixy", "zi-mo-qi", "Fenng", "Hi-iD", "peng-yu-75-12", "Ratoo", "yang-guo-er-95", "xu-hui-lin", "mu-peng-37", "e6kq"];
-var keywords = ["看待", "解读", "评价", "优雅", "中国人为什么", "如何正确", "如何成为", "评判", "却不", "体验", "少见但", "如何理解", "冷门但", "什么心理", "什么感觉", "零基础", "如何反驳", "鲜为人知", "特别急", "小众"];
+var keywords = ["看待", "解读", "评价", "优雅", "中国人为什么", "如何正确", "如何成为", "评判", "却不", "体验", "少见但", "如何理解", "冷门但", "什么心理", "什么感觉", "零基础", "如何反驳", "鲜为人知", "特别急", "小众", "你", "有哪些", "现在"];
 
 var top_column_info_hidden = 1;
 var you_may_not_want_to_know = 1;
