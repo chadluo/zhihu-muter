@@ -102,25 +102,24 @@ function comment_mute(className, tomute) {
 
 
 // 2. Timeline of homepage
-function mute_current_question(feed_item, tomute) {
+function mute_current_item(feed_item, keywords) {
     var question_title = feed_item.getElementsByClassName('question_link')[0].innerHTML;
-    for (var j = 0, len = tomute.length; j < len; j++) {
-        var muteword = tomute[j];
+    for (var j = 0, len = keywords.length; j < len; j++) {
+        var muteword = keywords[j];
         if (question_title.search(muteword) > -1) {
             feed_item.style.display = 'none';
-            var result = muteword + " is gone.";
         }
     }
     return result;
 }
 
-function question_mute(className, tomute) {
-    var elements = document.querySelectorAll('div[class^="' + className + '"]');
+function timeline_item_mute(keywords) {
+    var elements = document.querySelectorAll('div[class^="feed-item folding"]');
     n = elements.length;
     for (var i = 0; i < n; i++) {
         var feed_item = elements[i];
         try {
-            var result = mute_current_question(feed_item, tomute);
+            var result = mute_current_item(feed_item, keywords);
             // console.log(result);
         }
         catch (err){
@@ -181,8 +180,8 @@ if (hrefValue.search('question') > -1) {
 if (hrefValue.search('question') == -1) {
     if (document.addEventListener) {
         document.addEventListener('scroll', function (event) {
-            question_mute('feed-item folding feed-item-hook feed-item-a', keywords);
-            question_mute('feed-item folding feed-item-hook feed-item-q', keywords);
+            timeline_item_mute(keywords);
+            
         }, false);
     }
 }
