@@ -13,7 +13,7 @@ FAQ：
 
 **为什么会偶尔失效？**
 
-Chrome似乎会随机禁用非官方插件，所以已上传至Chrome商店（最新版），[点击安装](https://chrome.google.com/webstore/detail/zhihu-muter/fdmpgflloeigdkbobkcdlbdlakfbacme)。
+Chrome似乎会随机禁用非官方插件，所以已上传至Chrome商店（不一定是最新版），[点击安装](https://chrome.google.com/webstore/detail/zhihu-muter/fdmpgflloeigdkbobkcdlbdlakfbacme)。
 
 **默认的遮蔽列表怎么回事？**
 
