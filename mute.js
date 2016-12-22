@@ -5,8 +5,8 @@
 // @version 	  0.6
 
 /*
-* "Settings" function: 
-Easily edit mute_id_list and mute_keywords_list, 
+* "Settings" function:
+Easily edit mute_id_list and mute_keywords_list,
 On/Off button: enable/disable "zh-trendings" in homepage, and "zh-question-related-questions".
 * Performance trace.
 * Combine duplicated codes between each function.
@@ -15,7 +15,7 @@ On/Off button: enable/disable "zh-trendings" in homepage, and "zh-question-relat
 // TO_MUTE
 /*
 * articles written by ids that on mutelist.
-* "upvoted THESE answers" ->  feed-item folding feed-item-hook feed-item-a combine. 
+* "upvoted THESE answers" ->  feed-item folding feed-item-hook feed-item-a combine.
 */
 
 // id and keyword list
@@ -26,7 +26,6 @@ var top_column_info_hidden = 1;
 var you_may_not_want_to_know = 1;
 var relevent_questions = 1;
 
-// TODO: view and edit keywords/ids list with sample button
 /*
 
  var b = document.createElement("li");
@@ -34,7 +33,25 @@ var relevent_questions = 1;
  b.innerHTML = '<a class="zu-top-nav-link" href="" class="zu-top-nav-link" id="zh-top-nav-count-wrap" role="button">遮蔽</a>';
  document.getElementsByClassName("zu-top-nav-ul zg-clear")[0].appendChild(b);
 
- */
+*/
+
+var Magic = {
+    authorInfo: 'zm-item-answer-author-info',
+    answerComment: 'zm-comment-hd',
+    timelineQlink: 'question-link',
+    timelineFoldItem: 'div[class^="feed-item folding"]',
+    topLeftLogo: 'zu-top-link-logo',
+    topRightName: 'name',
+    releventQuestions: 'zh-question-related-questions',
+
+    event: 'scroll'
+};
+
+
+function hide(obj) {
+    obj.style.display = 'none';
+}
+
 
 // 1. Answer
 // 1.1 Answers by specific ids
@@ -46,8 +63,8 @@ function answer_mute(className, tomute) {
         var e = elements[i];
         for (var j = 0; j < mutelist_length; j++) {
             var muteword = tomute[j];
-            if (e.getElementsByClassName('zm-item-answer-author-info')[0].innerHTML.search(muteword) > -1) {
-                e.style.display = 'none';
+            if (e.getElementsByClassName(Magic.authorInfo)[0].innerHTML.search(muteword) > -1) {
+                hide(e);
                 // console.log(e)
             }
         }
@@ -76,8 +93,8 @@ function comment_mute(className, tomute) {
         var e = elements[i];
         for (var j = 0, len = tomute.length; j < len; j++) {
             var muteword = tomute[j];
-            if (e.getElementsByClassName('zm-comment-hd')[0].innerHTML.search(muteword) > -1) {
-                e.style.display = 'none';
+            if (e.getElementsByClassName(Magic.answerComment)[0].innerHTML.search(muteword) > -1) {
+                hide(e);
                 //console.log(muteword)
             }
         }
@@ -103,18 +120,18 @@ function comment_mute(className, tomute) {
 
 // 2. Timeline of homepage
 function mute_current_item(feed_item, keywords) {
-    var question_title = feed_item.getElementsByClassName('question_link')[0].innerHTML;
+    var question_title = feed_item.getElementsByClassName(Magic.timelineQlink)[0].innerHTML;
     for (var j = 0, len = keywords.length; j < len; j++) {
         var muteword = keywords[j];
         if (question_title.search(muteword) > -1) {
-            feed_item.style.display = 'none';
+            hide(feed_item);
         }
     }
     return result;
 }
 
 function timeline_item_mute(keywords) {
-    var elements = document.querySelectorAll('div[class^="feed-item folding"]');
+    var elements = document.querySelectorAll(Magic.timelineFoldItem);
     n = elements.length;
     for (var i = 0; i < n; i++) {
         var feed_item = elements[i];
@@ -135,20 +152,25 @@ hrefValue = window.location.href;
 
 // 1. Static methods that do not require listeners
 // 1.1: People you may not want to know
-if (hrefValue == "http://www.zhihu.com/") {
+var httpHome = "http://www.zhihu.com/";
+var httpsHome = "https://www.zhihu.com/";
+if (hrefValue == httpHome || hrefValue == httpsHome) {
     if (you_may_not_want_to_know == 1) {
         var column = document.getElementsByClassName('zh-trendings')[0];
-        column.style.display = 'none';
-        console.log('No user suggestions anymore.')
+        hide(column);
+        console.log('No user suggestions anymore.');
     }
 }
 
 // 1.2: Personal info and site log on the top
 // (hide for bigger -- hiths)
-var not_zhuanlan = (hrefValue.search("zhuanlan.zhihu") < 0)
+var not_zhuanlan = (hrefValue.search("zhuanlan.zhihu") < 0);
 if (top_column_info_hidden == 1 && not_zhuanlan) {
-    document.getElementsByClassName('zu-top-link-logo')[0].style.display = 'none';
-    document.getElementsByClassName('name')[0].style.display = 'none';
+    var logo = document.getElementsByClassName(Magic.topLeftLogo)[0];
+    var name = document.getElementsByClassName(Magic.topRightName)[0];
+    hide(logo);
+    hide(name);
+
     console.log('Site logo and Your Personal Info on top column are hidden.');
     console.log('For the bigger -- @hiths.');
 }
@@ -164,13 +186,14 @@ if (hrefValue.search('question') > -1) {
 
     // Relevent question suggestion column
     if (relevent_questions == 1) {
-        document.getElementsByClassName('zh-question-related-questions')[0].style.display = 'none';
-        console.log('No more suggestions on relevent questions.')
+        var relevent = document.getElementsByClassName(Magic.releventQuestions);
+        hide(relevent);
+        console.log('No more suggestions on relevent questions.');
     }
 
     // Scroll listener to mute answers and comments
     if (document.addEventListener) {
-        document.addEventListener('scroll', function (event) {
+        document.addEventListener(Magic.event, function (event) {
             comment_mute('zm-item-comment', mutelist);
             answer_mute('zm-item-answer', mutelist);
         }, false);
@@ -180,9 +203,9 @@ if (hrefValue.search('question') > -1) {
 // 2.2 Timeline
 if (hrefValue.search('question') == -1) {
     if (document.addEventListener) {
-        document.addEventListener('scroll', function (event) {
+      document.addEventListener(Magic.event, function (event) {
             timeline_item_mute(keywords);
-            
+
         }, false);
     }
 }
