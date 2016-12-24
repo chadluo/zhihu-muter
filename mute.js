@@ -4,6 +4,10 @@
 // @include       http://*.zhihu.com/*
 // @version 	  0.6
 
+// will be replaced by 0 when run `publish.sh`
+var DEBUG = 0;
+
+
 /*
  * "Settings" function:
  Easily edit mute_id_list and mute_keywords_list,
