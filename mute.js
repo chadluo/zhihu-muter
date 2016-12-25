@@ -145,7 +145,8 @@ if (hrefValue == "http://www.zhihu.com/") {
 
 // 1.2: Personal info and site log on the top
 // (hide for bigger -- hiths)
-if (top_column_info_hidden == 1) {
+var not_zhuanlan = (hrefValue.search("zhuanlan.zhihu") < 0)
+if (top_column_info_hidden == 1 && not_zhuanlan) {
     document.getElementsByClassName('zu-top-link-logo')[0].style.display = 'none';
     document.getElementsByClassName('name')[0].style.display = 'none';
     console.log('Site logo and Your Personal Info on top column are hidden.');
