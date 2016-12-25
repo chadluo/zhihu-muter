@@ -56,6 +56,13 @@ function hide(obj) {
   obj.style.display = 'none';
 }
 
+function log(msg) {
+  if (DEBUG == 1) {
+    console.log(msg);
+  }
+}
+
+
 
 // 1. Answer
 // 1.1 Answers by specific ids
@@ -144,7 +151,7 @@ function timeline_item_mute(keywords) {
       // console.log(result);
     }
     catch (err){
-      //console.log('Not valid feed item.');
+      log('Not valid feed item.');
     }
   }
 }
@@ -162,7 +169,7 @@ if (hrefValue == httpHome || hrefValue == httpsHome) {
   if (you_may_not_want_to_know == 1) {
     var column = document.getElementsByClassName('zh-trendings')[0];
     hide(column);
-    console.log('No user suggestions anymore.');
+    log('No user suggestions anymore.');
   }
 }
 
@@ -175,8 +182,8 @@ if (top_column_info_hidden == 1 && not_zhuanlan) {
   hide(logo);
   hide(name);
 
-  console.log('Site logo and Your Personal Info on top column are hidden.');
-  console.log('For the bigger -- @hiths.');
+  log('Site logo and Your Personal Info on top column are hidden.');
+  log('For the bigger -- @hiths.');
 }
 
 /* test
@@ -192,7 +199,7 @@ if (hrefValue.search('question') > -1) {
   if (relevent_questions == 1) {
     var relevent = document.getElementsByClassName(Magic.releventQuestions);
     hide(relevent);
-    console.log('No more suggestions on relevent questions.');
+    log('No more suggestions on relevent questions.');
   }
 
   // Scroll listener to mute answers and comments
@@ -209,7 +216,6 @@ if (hrefValue.search('question') == -1) {
   if (document.addEventListener) {
     document.addEventListener(Magic.event, function (event) {
       timeline_item_mute(keywords);
-
     }, false);
   }
 }
