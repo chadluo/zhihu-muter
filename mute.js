@@ -5,7 +5,7 @@
 // @version 	  0.6
 
 // will be replaced by 0 when run `publish.sh`
-var DEBUG = 0;
+var DEBUG = 1;
 
 
 /*
@@ -42,7 +42,7 @@ var relevent_questions = 1;
 var Magic = {
   authorInfo: 'zm-item-answer-author-info',
   answerComment: 'zm-comment-hd',
-  timelineQlink: 'question-link',
+  timelineQlink: 'question_link',
   timelineFoldItem: 'div[class^="feed-item folding"]',
   topLeftLogo: 'zu-top-link-logo',
   topRightName: 'name',
@@ -81,7 +81,6 @@ function answer_mute(className, tomute) {
       var muteword = tomute[j];
       if (e.getElementsByClassName(Magic.authorInfo)[0].innerHTML.search(muteword) > -1) {
         hide(e);
-        // console.log(e)
       }
     }
   }
@@ -136,10 +135,21 @@ function comment_mute(className, tomute) {
 
 // 2. Timeline of homepage
 function mute_current_item(feed_item, keywords) {
-  var question_title = feed_item.getElementsByClassName(Magic.timelineQlink)[0].innerHTML;
+  var title = null;
+
+  // upvote on answer
+  var qtitles = feed_item.getElementsByClassName(Magic.timelineQlink);
+  if (qtitles.length == 1) {
+    title = qtitles[0].innerHTML;
+  } else {
+    // upvote on article
+    var atitles = feed_item.getElementsByClassName("post-link");
+    title = atitles[0].innerHTML;
+  }
+
   for (var j = 0, len = keywords.length; j < len; j++) {
     var muteword = keywords[j];
-    if (question_title.search(muteword) > -1) {
+    if (title.search(muteword) > -1) {
       hide(feed_item);
     }
   }
@@ -153,10 +163,9 @@ function timeline_item_mute(keywords) {
     var feed_item = elements[i];
     try {
       var result = mute_current_item(feed_item, keywords);
-      // console.log(result);
     }
     catch (err) {
-      log('Not valid feed item.');
+      // log('Not valid feed item: ' + err);
     }
   }
 }
