@@ -3,13 +3,13 @@
 
   "name": "Zhihu muter",
   "description": "Clean up your timeline and answer page.",
-  "version": "0.3141",
+  "version": "3.14",
   "homepage_url": "https://twitter.com/ahxxm",
-  
+
   "icons": {
     "128": "xml.png"
   },
-  
+
   "content_scripts": [{
     "matches": ["http://*.zhihu.com/*", "https://*.zhihu.com/*"],
     "js": ["mute.js"]
