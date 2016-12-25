@@ -53,7 +53,12 @@ var Magic = {
 
 
 function hide(obj) {
-  obj.style.display = 'none';
+  try {
+    obj.style.display = 'none';
+  }
+  catch (err) {
+    log(err);
+  }
 }
 
 function log(msg) {
@@ -150,7 +155,7 @@ function timeline_item_mute(keywords) {
       var result = mute_current_item(feed_item, keywords);
       // console.log(result);
     }
-    catch (err){
+    catch (err) {
       log('Not valid feed item.');
     }
   }
@@ -178,9 +183,10 @@ if (hrefValue == httpHome || hrefValue == httpsHome) {
 var not_zhuanlan = (hrefValue.search("zhuanlan.zhihu") < 0);
 if (top_column_info_hidden == 1 && not_zhuanlan) {
   var logo = document.getElementsByClassName(Magic.topLeftLogo)[0];
-  var name = document.getElementsByClassName(Magic.topRightName)[0];
   hide(logo);
-  hide(name);
+
+  // logo is HTML collection, name is "object HTML collection"
+  hide(document.getElementsByClassName(Magic.topRightName)[0]);
 
   log('Site logo and Your Personal Info on top column are hidden.');
   log('For the bigger -- @hiths.');
